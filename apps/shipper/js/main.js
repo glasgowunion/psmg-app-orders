@@ -1,18 +1,24 @@
+//// Import Shared files
 // Import CellJS Utils
-import { Append } from '/js/modules/cell/append.js';
+import { Append } from '/shared/js/modules/cell/append.js';
 
 // Import UI Components
-import { DispearingNotification } from '/js/modules/components/notification.js';
-import { Fields } from '/app/js/components/forms/CourierSettings.js';
-import { Header } from '/js/modules/components/header.js';
-import { Help } from '/js/modules/components/help.js';
-import { TwoColumnLayoutWithOffset } from '/js/modules/ui/layout.js';
+import { DispearingNotification } from '/shared/js/modules/components/notification.js';
+import { Header } from '/shared/js/modules/components/header.js';
+import { Help } from '/shared/js/modules/components/help.js';
+import { TwoColumnLayoutWithOffset } from '/shared/js/modules/ui/layout.js';
 
 // Import Form Builder and Form Utilities
-import * as FB from '/js/modules/ui/formBuilder.js';
-import * as Form from '/js/modules/ui/form.js';
+import * as FB from '/shared/js/modules/ui/formBuilder.js';
+import * as Form from '/shared/js/modules/ui/form.js';
 
-var DB = new PouchDB('http://localhost:5984/courier_fedex_domestic_glasgow');
+// Import App files
+import { Fields } from '/apps/shipper/js/components/forms/CourierSettings.js';
+
+// Import Database Utils
+import { SetupDB } from '/shared/js/modules/db/db.js';
+
+var DB = SetupDB('http://localhost:5984/courier_fedex_domestic_glasgow');
 
 // Cache Store
 var Cache = {};
@@ -100,7 +106,7 @@ var App = {
 	},
 	$cell: true,
 	$type: 'div',
-	id: 'entry',
+	id: 'app',
 	$components: [
 		Header('', 'Courier Settings', 'Setup your courier account here'),
 		ShipperSettingsPage

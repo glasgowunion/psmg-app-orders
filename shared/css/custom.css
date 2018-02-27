@@ -1,33 +1,37 @@
+body {
+	background: #5dc1e9;
+	border-top: 4px solid #1b95c5;
+}
+
 .table.is-narrow td {
-    padding: .5em 1.5em;
+	padding: 0.5em 1.5em;
 }
 
 .columns {
-    height:auto;
+	height: auto;
 }
 
 .config-form {
-    padding: 1.5rem;
+	padding: 1.5rem;
 }
 
 .icon-help {
-    height: 3rem;
-    width:  4rem;
+	height: 3rem;
+	width: 4rem;
 }
 
 .box {
-    box-shadow: 15px 40px 60px 0 rgba(0,0,0,.16)
-}
-
-body {
-    background:#5dc1e9;
-    height:auto;
+	box-shadow: 15px 40px 60px 0 rgba(0, 0, 0, 0.16);
 }
 
 nav.navbar {
-    border-top:4px solid #1b95c5;
+	border-top: 4px solid #1b95c5;
 }
 
-body {
-  border-top: 4px solid #1b95c5;
+#app {
+	padding-bottom: 2em;
+}
+
+.is-link {
+	cursor: pointer;
 }

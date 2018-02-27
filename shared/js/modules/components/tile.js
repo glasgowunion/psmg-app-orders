@@ -33,16 +33,28 @@ function StatusTile(id, number, text) {
 // @params components {[Object]} - arracy of StatusTiles
 function StatusTitleBar(components) {
 	return {
-		$type: 'section',
-		class: 'info-tiles',
+		$type: 'div',
+		$cell: true,
+		class: 'columns',
 		$components: [
 			{
 				$type: 'div',
-				$class: 'tile is-ancestor has-text-centered',
-				$components: components
+				class: 'column is-12',
+				$components: [
+					{
+						$type: 'section',
+						class: 'info-tiles',
+						$components: [
+							{
+								$type: 'div',
+								class: 'tile is-ancestor has-text-centered',
+								$components: components
+							}
+						]
+					}
+				]
 			}
 		]
 	};
 }
-
-export { Tile, StatusTitleBar };
+export { StatusTile, StatusTitleBar };

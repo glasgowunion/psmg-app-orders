@@ -1,4 +1,9 @@
-<html>
+<!--
+I had hoped to import these but
+I can't do it and retain a window context
+so just copy and paste the context of this header for your documents
+-->
+
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
@@ -33,12 +38,18 @@
 
   <!-- Custom CSS Changes to the admin theme -->
   <link rel="stylesheet" type="text/css" href="/shared/css/custom.css">
-
-  <title>Paintshed Management | Shipper</title>
 </head>
 
-<body>
-  <div id="app" class="container"></div>
-  <script type="module" src="/apps/orders/js/app.js" charset="utf-8"></script>
-</body>
-</html>
+<script type="text/javascript">
+var importDocument = document.currentScript.ownerDocument;
+var head = importDocument.querySelector('head');
+
+// copy title
+var title = document.title;
+
+// document references the main document (the page that's importing us)
+document.head.replaceWith(head.cloneNode(true));
+
+// replace title
+document.title = title;
+</script>
