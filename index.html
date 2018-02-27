@@ -1,0 +1,58 @@
+<html>
+
+<head>
+  <link rel="import" href="/app/main.html">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Paintshed Paisley | Shipper App</title>
+
+  <!-- Javascript -->
+
+  <!-- Ramda functional programming -->
+  <script src="/js/vendor/ramda.js"></script>
+
+  <!-- Font Awesome -->
+  <script defer src="/js/vendor/fontawesome.js"></script>
+
+  <!-- Cell JS UI Library -->
+  <script src="/js/vendor/cell.js" charset="utf-8"></script>
+
+  <!-- Pouch DB and Pouch Plugins -->
+  <script src="/js/vendor/pouchdb.js"></script>
+  <script src="/js/vendor/pouchdb.find.js" charset="utf-8"></script>
+
+  <!-- Dexie JS in Memory DB -->
+  <script src="/js/vendor/dexie.js"></script>
+
+  <!-- CSS and Fonts -->
+
+  <!-- Bulma Version 0.6.0 -->
+  <link rel="stylesheet" href="/css/vendor/bulma.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+  <!-- Admin Theme -->
+  <link rel="stylesheet" type="text/css" href="/css/theme/admin.css">
+
+  <!-- Custom CSS Changes to the admin theme -->
+  <link rel="stylesheet" type="text/css" href="/css/custom.css">
+</head>
+
+<body>
+
+  <div class="container"></div>
+
+  <!-- Lauches Web component -->
+  <script>
+    var link = document.querySelector('link[rel="import"]');
+    var template = link.import.querySelector('template');
+    var clone = document.importNode(template.content, true);
+
+    document.querySelector('.container').appendChild(clone);
+  </script>
+
+  <script type="module" src="/app/js/main.js"></script>
+
+</body>
+
+</html>
