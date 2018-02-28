@@ -20,7 +20,29 @@ function renderFullNameField(item) {
 }
 
 function renderFullNameFieldDifferentShipperAddress(item) {
+	if (item.ship_address.company) {
+		return [
+			renderIconLeftTooltip('fa-building', item.ship_address.company),
+			renderFullNameField(item),
+			renderPhone(item),
+			renderEmail(item),
+			{
+				$type: 'span',
+				class: 'icon is-link is-pulled-right',
+				$components: [
+					{
+						$type: 'i',
+						class: 'fas fa-user-plus'
+					}
+				],
+				onclick: function() {
+					LaunchModal(OrderAddressCard(item));
+				}
+			}
+		];
+	}
 	return [
+		renderIconLeft('fa-home'),
 		renderFullNameField(item),
 		renderPhone(item),
 		renderEmail(item),
@@ -55,6 +77,34 @@ function renderIconWithLink(link, icon) {
 				window.open(link);
 			}
 		}
+	};
+}
+
+function renderIconLeft(icon) {
+	return {
+		$type: 'span',
+		class: 'icon',
+		$components: [
+			{
+				$type: 'i',
+				class: 'fas ' + icon
+			}
+		]
+	};
+}
+
+function renderIconLeftTooltip(icon, tip) {
+	return {
+		$type: 'span',
+		class: 'icon tootip',
+		'data-balloon': tip,
+		'data-balloon-pos': 'up',
+		$components: [
+			{
+				$type: 'i',
+				class: 'fas ' + icon
+			}
+		]
 	};
 }
 
@@ -98,7 +148,20 @@ function RenderNameField(item) {
 		Format.Name(item.bill_address.firstname, item.bill_address.lastname) ==
 		Format.Name(item.ship_address.firstname, item.ship_address.lastname)
 	) {
-		return [renderFullNameField(item), renderPhone(item), renderEmail(item)];
+		if (item.ship_address.company) {
+			return [
+				renderIconLeftTooltip('fa-building', item.ship_address.company),
+				renderFullNameField(item),
+				renderPhone(item),
+				renderEmail(item)
+			];
+		}
+		return [
+			renderIconLeft('fa-home'),
+			renderFullNameField(item),
+			renderPhone(item),
+			renderEmail(item)
+		];
 	}
 	return renderFullNameFieldDifferentShipperAddress(item);
 }
@@ -241,7 +304,7 @@ var component = {
 								{
 									$type: 'button',
 									class: 'button is-small',
-									$text: 'Create Label',
+									$text: 'Pack',
 									style: 'width: 100%;'
 								}
 							]

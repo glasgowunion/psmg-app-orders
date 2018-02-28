@@ -1,6 +1,6 @@
 import { SetupDB } from '/shared/js/modules/db/db.js';
 
-var DB = SetupDB('http://localhost:5984/orders');
+var DB = SetupDB('http://localhost:5984/orders2');
 
 export async function NewOrders() {
 	try {

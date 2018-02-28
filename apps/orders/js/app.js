@@ -28,7 +28,7 @@ import { NewOrders } from '/apps/orders/js/components/queries/orders.js';
 import { Component as OrdersTable } from '/apps/orders/js/components/ordersTable.js';
 import { Component as OrdersTicker } from '/apps/orders/js/components/ordersTicker.js';
 
-var DB = SetupDB('http://localhost:5984/orders');
+var DB = SetupDB('http://localhost:5984/orders2');
 
 // Entry Point to App
 var App = {
@@ -43,8 +43,12 @@ var App = {
 	$components: [
 		Header('', 'New Orders', 'View New Orders in the system'),
 		StatusTitleBar([
-			StatusTile('status-new-orders', 22, 'New'),
-			StatusTile('status-new-orders', 4, 'Late')
+			//StatusTile('status-new-orders', 32, 'All'),
+			StatusTile('status-new-orders', '1', 'Ice Box'),
+			StatusTile('status-new-orders', 17, 'New'),
+			StatusTile('status-new-orders', 5, 'Pack'),
+			StatusTile('status-new-orders', 10, 'Label'),
+			StatusTile('status-new-orders', 10, 'Close')
 		]),
 		OrdersTable,
 		OrdersTicker
