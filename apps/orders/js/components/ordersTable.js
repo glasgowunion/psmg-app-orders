@@ -1,7 +1,10 @@
 import * as Format from '/apps/orders/js/components/formaters.js';
 
+import { ChangeState } from '/apps/orders/js/components/actions/changeState.js';
+
 // Import Shared UI Components
-import { LaunchModal } from '/shared/js/modules/components/modal.js';
+import * as Modals from '/shared/js/modules/components/modal.js';
+import * as Icons from '/shared/js/modules/components/icons.js';
 
 let headers = ['Name', 'Order', 'City', 'Postcode', 'Actions'];
 
@@ -20,117 +23,38 @@ function renderFullNameField(item) {
 }
 
 function renderFullNameFieldDifferentShipperAddress(item) {
+	function launchModal() {}
+
 	if (item.ship_address.company) {
 		return [
-			renderIconLeftTooltip('fa-building', item.ship_address.company),
+			Icons.IconWithTooltip('fa-building', item.ship_address.company, ''),
+			Icons.IconWithLinkColour('', 'fa-comment', 'lightgray', 'right'),
 			renderFullNameField(item),
 			renderPhone(item),
 			renderEmail(item),
-			{
-				$type: 'span',
-				class: 'icon is-link is-pulled-right',
-				$components: [
-					{
-						$type: 'i',
-						class: 'fas fa-user-plus'
-					}
-				],
-				onclick: function() {
-					LaunchModal(OrderAddressCard(item));
-				}
-			}
+			Modals.AttachModalOnClick(
+				Icons.Icon('fa-user-plus', 'right'),
+				OrderAddressCard(item)
+			)
 		];
 	}
 	return [
 		renderIconLeft('fa-home'),
 		renderFullNameField(item),
+		renderIconWithLinkColour('', 'fa-comment', 'lightgray'),
 		renderPhone(item),
 		renderEmail(item),
-		{
-			$type: 'span',
-			class: 'icon is-link is-pulled-right',
-			$components: [
-				{
-					$type: 'i',
-					class: 'fas fa-user-plus'
-				}
-			],
-			onclick: function() {
-				LaunchModal(OrderAddressCard(item));
-			}
-		}
+		Modals.AttachModalOnClick(
+			Icons.Icon('fa-user-plus', 'right'),
+			OrderAddressCard(item)
+		)
 	];
-}
-
-function renderIconWithLink(link, icon) {
-	return {
-		$type: 'span',
-		class: 'icon is-link is-pulled-right',
-		$components: [
-			{
-				$type: 'i',
-				class: 'fas ' + icon
-			}
-		],
-		onclick: function() {
-			if (link) {
-				window.open(link);
-			}
-		}
-	};
-}
-
-function renderIconLeft(icon) {
-	return {
-		$type: 'span',
-		class: 'icon',
-		$components: [
-			{
-				$type: 'i',
-				class: 'fas ' + icon
-			}
-		]
-	};
-}
-
-function renderIconLeftTooltip(icon, tip) {
-	return {
-		$type: 'span',
-		class: 'icon tootip',
-		'data-balloon': tip,
-		'data-balloon-pos': 'up',
-		$components: [
-			{
-				$type: 'i',
-				class: 'fas ' + icon
-			}
-		]
-	};
-}
-
-function renderIcon(icon) {
-	return {
-		$type: 'span',
-		class: 'icon is-pulled-right',
-		$components: [
-			{
-				$type: 'i',
-				class: 'fas ' + icon
-			}
-		]
-	};
-}
-
-function renderBlankSpan() {
-	return {
-		$type: 'span'
-	};
 }
 
 function renderEmail(item) {
 	if (item.email) {
 		var link = 'mailto://' + item.email;
-		return renderIconWithLink(link, 'fa-at');
+		return Icons.IconWithLink(link, 'fa-at', 'right');
 	}
 	return renderBlankSpan();
 }
@@ -138,7 +62,7 @@ function renderEmail(item) {
 function renderPhone(item) {
 	if (item.bill_address.phone) {
 		var link = 'tel://' + item.bill_address.phone;
-		return renderIconWithLink(link, 'fa-phone');
+		return Icons.IconWithLink(link, 'fa-phone', 'right');
 	}
 	return renderBlankSpan();
 }
@@ -150,15 +74,17 @@ function RenderNameField(item) {
 	) {
 		if (item.ship_address.company) {
 			return [
-				renderIconLeftTooltip('fa-building', item.ship_address.company),
+				Icons.IconWithTooltip('fa-building', item.ship_address.company, ''),
 				renderFullNameField(item),
+				Icons.IconWithLinkColour('', 'fa-comment', 'lightgray', 'right'),
 				renderPhone(item),
 				renderEmail(item)
 			];
 		}
 		return [
-			renderIconLeft('fa-home'),
+			Icons.Icon('fa-home', ''),
 			renderFullNameField(item),
+			Icons.IconWithLinkColour('', 'fa-comment', 'lightgray', 'right'),
 			renderPhone(item),
 			renderEmail(item)
 		];
@@ -256,9 +182,9 @@ function RenderLineItems(item) {
 	return [
 		{ $type: 'span', $text: item.number },
 		displayTotalPrice,
-		renderIcon('fa-tag'),
+		Icons.Icon('fa-tag', 'right'),
 		displayTotal,
-		renderIcon('fa-barcode'),
+		Icons.Icon('fa-barcode', 'right'),
 		displaySKUs
 	];
 }
@@ -278,6 +204,8 @@ var component = {
 					'https://www.google.co.uk/maps/place/' + item.ship_address.postcode;
 				return {
 					$type: 'tr',
+					_data: item,
+					id: item._id,
 					$components: [
 						{
 							$type: 'td',
@@ -295,7 +223,7 @@ var component = {
 									$type: 'span',
 									$text: Format.Postcode(item.ship_address.postcode)
 								},
-								renderIconWithLink(map_link, 'fa-map-marker-alt')
+								Icons.IconWithLink(map_link, 'fa-map-marker-alt', 'right')
 							]
 						},
 						{
@@ -307,7 +235,19 @@ var component = {
 									$text: 'Pack',
 									style: 'width: 100%;'
 								}
-							]
+							],
+							_ref: item._id,
+							onclick: function() {
+								var self = this;
+								console.log(self._ref);
+								var doc = document.getElementById(self._ref);
+
+								ChangeState(doc._data).then(function(res) {
+									if (res.ok) {
+										doc.remove();
+									}
+								});
+							}
 						}
 					]
 				};

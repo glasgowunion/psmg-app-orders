@@ -41,14 +41,14 @@ var App = {
 	},
 	$cell: true,
 	$components: [
-		Header('', 'New Orders', 'View New Orders in the system'),
+		Header('', 'New Orders', 'View New Orders from all channels'),
 		StatusTitleBar([
 			//StatusTile('status-new-orders', 32, 'All'),
 			StatusTile('status-new-orders', '1', 'Ice Box'),
-			StatusTile('status-new-orders', 17, 'New'),
+			StatusTile('status-new-orders', 19, 'New'),
 			StatusTile('status-new-orders', 5, 'Pack'),
 			StatusTile('status-new-orders', 10, 'Label'),
-			StatusTile('status-new-orders', 10, 'Close')
+			StatusTile('status-new-orders', 0, 'Close')
 		]),
 		OrdersTable,
 		OrdersTicker

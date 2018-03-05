@@ -41,11 +41,25 @@
   <!-- Custom CSS Changes to the admin theme -->
   <link rel="stylesheet" type="text/css" href="/shared/css/custom.css">
 
+  <script src="https://cdn.auth0.com/auth0-extend/1/extend-editor.js"></script>
+
   <title>Paintshed Management | Shipper</title>
 </head>
 
 <body>
-  <div id="app" class="container"></div>
-  <script type="module" src="/apps/orders/js/app.js" charset="utf-8"></script>
+  <div id="extend-editor" class="container">
+
+  </div>
+<!--  <script type="module" src="/apps/orders/js/app.js" charset="utf-8"></script> -->
+<script type="text/javascript">
+ExtendEditor.create(document.getElementById('extend-editor'), {
+	hostUrl: 'https://webtask.it.auth0.com',
+	webtaskContainer: 'ext-a5bf03e77d3f4ae798f7f7270ff82f4e',
+	token:
+		'eyJhbGciOiJIUzI1NiIsImtpZCI6IjIifQ.eyJqdGkiOiIyZTljNWViNjJjMWY0OGExYmM0ZDBkODdjZWU4OTliMSIsImlhdCI6MTUxOTkzMTMwMCwiY2EiOlsiY2RjOTQ5MTQ1Njk1NDA5N2E0ZWE0ZDA2YjI1ZWI1YTMiXSwiZGQiOjIsInRlbiI6ImV4dC1hNWJmMDNlNzdkM2Y0YWU3OThmN2Y3MjcwZmY4MmY0ZSIsInNpZCI6ImV4dGVuZC1mcmVlbWl1bTpnb29nbGUtb2F1dGgyfDExMTk0OTI2ODQ5ODI3MTkwNTY2NiJ9.t0SoiJSi8FWtqSKLf27l1g_nZUKr75vQF7bfBbXGjnQ',
+	webtaskName: 'paintshed_postcode_warnings',
+	createIfNotExists: true
+});
+</script>
 </body>
 </html>

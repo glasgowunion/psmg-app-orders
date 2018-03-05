@@ -30,4 +30,12 @@ function LaunchModal(components) {
 	window.document.body.appendChild(cell);
 }
 
-export { LaunchModal };
+function AttachModalOnClick(component_to_attach_modal, component) {
+	component_to_attach_modal.onclick = function() {
+		LaunchModal(component);
+	};
+
+	return component_to_attach_modal;
+}
+
+export { LaunchModal, AttachModalOnClick };
