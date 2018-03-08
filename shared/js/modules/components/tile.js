@@ -61,7 +61,7 @@ function StatusTileWithIcon(id, icon, text) {
 
 // StatusTitleBar : Wraps multiple status tiles to display in a using Bulma
 // @params components {[Object]} - array of StatusTiles
-function StatusTitleBar(components) {
+function StatusTitleBar(size,components) {
   return {
     $type: 'div',
     $cell: true,
@@ -69,7 +69,7 @@ function StatusTitleBar(components) {
     $components: [
       {
         $type: 'div',
-        class: 'column is-12',
+        class: 'column is-' + size,
         $components: [
           {
             $type: 'section',
