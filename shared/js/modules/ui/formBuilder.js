@@ -14,7 +14,7 @@ function Select(id, label, optionLabel, options) {
         $type: 'option',
         $text: optionLabel,
       },
-      R.map(mapOptionsToComponent, options),
+      window.R.map(mapOptionsToComponent, options),
     ],
   }
 

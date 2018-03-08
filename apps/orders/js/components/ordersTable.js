@@ -22,6 +22,12 @@ function renderFullNameField(item) {
 	};
 }
 
+function renderBlankSpan() {
+	return {
+		$type: 'span'
+	};
+}
+
 function renderFullNameFieldDifferentShipperAddress(item) {
 	function launchModal() {}
 
@@ -39,9 +45,9 @@ function renderFullNameFieldDifferentShipperAddress(item) {
 		];
 	}
 	return [
-		renderIconLeft('fa-home'),
+		Icons.Icon('fa-home','left'),
 		renderFullNameField(item),
-		renderIconWithLinkColour('', 'fa-comment', 'lightgray'),
+		Icons.IconWithLinkColour('', 'fa-comment', 'lightgray','right'),
 		renderPhone(item),
 		renderEmail(item),
 		Modals.AttachModalOnClick(
@@ -159,7 +165,7 @@ function RenderLineItems(item) {
 	var addQuantity = function(a, e) {
 		return a + e.quantity;
 	};
-	var total = R.reduce(addQuantity, 0, skus);
+	var total = window.R.reduce(addQuantity, 0, skus);
 
 	var displaySKUs = {
 		$type: 'span',
