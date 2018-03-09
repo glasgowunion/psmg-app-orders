@@ -42,7 +42,7 @@ var App = {
 	},
 	$cell: true,
 	$components: [
-		Header('', 'New Orders', 'View New Orders from all channels'),
+		Header('', 'Packing', 'Enter weight and number of packages'),
 		StatusTitleBar('12', [
 			//StatusTile('status-new-orders', 32, 'All'),
 			StatusTile('status-new-orders', '1', 'Ice Box'),

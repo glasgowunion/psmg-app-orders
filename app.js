@@ -25,7 +25,7 @@ var App = {
       $text: 'Warehouse',
       style: 'font-size:1.25rem;color:hsl(192, 17%, 99%);',
     },
-    StatusTitleBar('12',[
+    StatusTitleBar('12', [
       StatusTileWithIcon(
         'status-new-orders',
         Icons.IconWithLink('/apps/icebox', 'fa-box', ''),
@@ -57,7 +57,7 @@ var App = {
       $text: 'Customer Service',
       style: 'font-size:1.25rem;color:hsl(192, 17%, 99%);',
     },
-    StatusTitleBar('two-fifths',[
+    StatusTitleBar('two-fifths', [
       StatusTileWithIcon(
         'status-new-orders',
         Icons.IconWithLink('/apps/tracking', 'fa-question', ''),
