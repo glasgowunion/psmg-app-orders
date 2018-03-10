@@ -6,7 +6,7 @@ import { ChangeState } from '/apps/orders/js/components/actions/changeState.js';
 import * as Modals from '/shared/js/modules/components/modal.js';
 import * as Icons from '/shared/js/modules/components/icons.js';
 
-let headers = ['Name', 'Order', 'City', 'Pack', 'Actions'];
+let headers = ['Name', 'Order', 'Pack', 'Actions'];
 
 let Headers = function(item) {
 	return { $type: 'th', $text: item };
@@ -223,48 +223,100 @@ var component = {
 							$components: RenderLineItems(item)
 						},
 						//{ $type: 'td', $text: item.ship_address.city },
+						// {
+						// 	$type: 'td',
+						// 	$components: [
+						// 		{
+						// 			$type: 'span',
+						// 			$text: Format.Postcode(item.ship_address.postcode)
+						// 		},
+						// 		Icons.IconWithLink(map_link, 'fa-map-marker-alt', 'right')
+						// 	]
+						// },
 						{
 							$type: 'td',
 							$components: [
 								{
-									$type: 'span',
-									$text: Format.Postcode(item.ship_address.postcode)
-								},
-								Icons.IconWithLink(map_link, 'fa-map-marker-alt', 'right')
-							]
-						},
-						{
-							$type: 'div',
-							class: 'field',
-							$components: [
-								{
-									$type: 'p',
-									class: 'control is-expanded has-icons-left has-icons-right',
+									$type: 'div',
+									class: 'field-body',
 									$components: [
 										{
-											$type: 'input',
-											class: 'input is-success',
-											type: 'email',
-											placeholder: 'Email',
-											value: 'alex@smith.com'
-										},
-										{
-											$type: 'span',
-											class: 'icon is-small is-left',
+											$type: 'div',
+											class: 'field',
 											$components: [
 												{
-													$type: 'i',
-													class: 'fas fa-envelope'
+													$type: 'p',
+													class: 'control is-expanded has-icons-left',
+													$components: [
+														{
+															$type: 'input',
+															class: 'input',
+															type: 'number',
+															placeholder: 'Weight',
+															value: ''
+														},
+														{
+															$type: 'span',
+															class: 'icon is-small is-left',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-weight'
+																}
+															]
+														}
+													]
 												}
 											]
 										},
 										{
-											$type: 'span',
-											class: 'icon is-small is-right',
+											$type: 'div',
+											class: 'field',
 											$components: [
 												{
-													$type: 'i',
-													class: 'fas fa-check'
+													$type: 'p',
+													class: 'control is-expanded has-icons-left',
+													$components: [
+														{
+															$type: 'input',
+															class: 'input',
+															type: 'number',
+															placeholder: 'Boxes',
+															value: ''
+														},
+														{
+															$type: 'span',
+															class: 'icon is-small is-left',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-boxes'
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											$type: 'p',
+											class: 'control',
+											$components: [
+												{
+													$type: 'a',
+													class: 'button',
+													$components: [
+														{
+															$type: 'span',
+															class: 'icon is-small',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-check'
+																}
+															]
+														}
+													]
 												}
 											]
 										}
