@@ -44,6 +44,7 @@ function renderFullNameFieldDifferentShipperAddress(item) {
 			)
 		];
 	}
+
 	return [
 		Icons.Icon('fa-home', 'left'),
 		renderFullNameField(item),
