@@ -20,16 +20,12 @@ import * as Form from '/shared/js/modules/ui/form.js';
 // import { Fields } from '/apps/shipper/js/components/forms/CourierSettings.js';
 
 // Import Database Utils
-import { SetupDB } from '/shared/js/modules/db/db.js';
+import { DB } from '/shared/js/app/orders/db.js';
 
 //// Import Custom App scripts
 import { NewOrders } from '/apps/orders/js/components/queries/orders.js';
 import { Component as OrdersTable } from '/apps/orders/js/components/ordersTable.js';
 import { Component as OrdersTicker } from '/apps/orders/js/components/ordersTicker.js';
-
-var DB = SetupDB(
-	'https://boveselfineactsementsdon:7cbcf23d17bfe02b2df352211213e7eadc7a6f27@895b0bb4-e351-41b3-b17e-c7f0597292c6-bluemix.cloudant.com/orders'
-);
 
 // Entry Point to App
 var App = {
