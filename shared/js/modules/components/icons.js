@@ -21,7 +21,7 @@ function IconWithLink(link, icon, pos) {
 		],
 		onclick: function() {
 			if (link) {
-				window.open(link);
+				window.open(link, '_self', false);
 			}
 		}
 	};

@@ -7,7 +7,7 @@ import * as Modals from '/shared/js/modules/components/modal.js';
 import * as Icons from '/shared/js/modules/components/icons.js';
 import * as DropdownButton from '/shared/js/modules/components/DropdownButton.js';
 
-let headers = ['Name', 'Order', 'Pack', 'Actions'];
+let headers = ['Name', 'Order', 'Shipment', 'Labels', 'Actions'];
 
 let Headers = function(item) {
 	return { $type: 'th', $text: item };
@@ -223,6 +223,10 @@ var component = {
 							$type: 'td',
 							$components: RenderLineItems(item)
 						},
+						{
+							$type: 'td',
+							$components: [{}]
+						},
 						//{ $type: 'td', $text: item.ship_address.city },
 						// {
 						// 	$type: 'td',
@@ -237,101 +241,19 @@ var component = {
 						{
 							$type: 'td',
 							$components: [
-								{
-									$type: 'div',
-									class: 'field-body',
-									$components: [
-										{
-											$type: 'div',
-											class: 'field',
-											$components: [
-												{
-													$type: 'p',
-													class: 'control is-expanded has-icons-left',
-													$components: [
-														{
-															$type: 'input',
-															class: 'input',
-															type: 'number',
-															placeholder: 'Weight',
-															value: ''
-														},
-														{
-															$type: 'span',
-															class: 'icon is-small is-left',
-															$components: [
-																{
-																	$type: 'i',
-																	class: 'fas fa-weight'
-																}
-															]
-														}
-													]
-												}
-											]
-										},
-										{
-											$type: 'div',
-											class: 'field',
-											$components: [
-												{
-													$type: 'p',
-													class: 'control is-expanded has-icons-left',
-													$components: [
-														{
-															$type: 'input',
-															class: 'input',
-															type: 'number',
-															placeholder: 'Boxes',
-															value: ''
-														},
-														{
-															$type: 'span',
-															class: 'icon is-small is-left',
-															$components: [
-																{
-																	$type: 'i',
-																	class: 'fas fa-boxes'
-																}
-															]
-														}
-													]
-												}
-											]
-										},
-										{
-											$type: 'p',
-											class: 'control',
-											$components: [
-												{
-													$type: 'a',
-													class: 'button',
-													$components: [
-														{
-															$type: 'span',
-															class: 'icon is-small',
-															$components: [
-																{
-																	$type: 'i',
-																	class: 'fas fa-check'
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								}
+								{ $type: 'span', $text: 'labels will appear here once booked' }
 							]
 						},
 						{
 							$type: 'td',
 							$components: [
 								DropdownButton.Group('Next Action', 'right', [
-									DropdownButton.Button('Ship'),
+									DropdownButton.Button('Quick Book'),
+									DropdownButton.Button('Advanced Book'),
 									DropdownButton.Div(),
-									DropdownButton.Button('New Order'),
+									DropdownButton.Button('Send To Accounts'),
+									DropdownButton.Div(),
+									DropdownButton.Button('Packing'),
 									DropdownButton.Button('Ice Box')
 								])
 							],

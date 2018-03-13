@@ -5,6 +5,7 @@ import { ChangeState } from '/apps/orders/js/components/actions/changeState.js';
 // Import Shared UI Components
 import * as Modals from '/shared/js/modules/components/modal.js';
 import * as Icons from '/shared/js/modules/components/icons.js';
+import * as DropdownButton from '/shared/js/modules/components/DropdownButton.js';
 
 let headers = ['Name', 'Order', 'City', 'Postcode', 'Actions'];
 
@@ -45,9 +46,9 @@ function renderFullNameFieldDifferentShipperAddress(item) {
 		];
 	}
 	return [
-		Icons.Icon('fa-home','left'),
+		Icons.Icon('fa-home', 'left'),
 		renderFullNameField(item),
-		Icons.IconWithLinkColour('', 'fa-comment', 'lightgray','right'),
+		Icons.IconWithLinkColour('', 'fa-comment', 'lightgray', 'right'),
 		renderPhone(item),
 		renderEmail(item),
 		Modals.AttachModalOnClick(
@@ -235,25 +236,24 @@ var component = {
 						{
 							$type: 'td',
 							$components: [
-								{
-									$type: 'button',
-									class: 'button is-small',
-									$text: 'Pack',
-									style: 'width: 100%;'
-								}
+								DropdownButton.Group('Next Action', 'right', [
+									DropdownButton.Button('Pack'),
+									DropdownButton.Div(),
+									DropdownButton.Button('Ice Box')
+								])
 							],
-							_ref: item._id,
-							onclick: function() {
-								var self = this;
-								console.log(self._ref);
-								var doc = document.getElementById(self._ref);
-
-								ChangeState(doc._data).then(function(res) {
-									if (res.ok) {
-										doc.remove();
-									}
-								});
-							}
+							_ref: item._id
+							// onclick: function() {
+							// 	var self = this;
+							// 	console.log(self._ref);
+							// 	var doc = document.getElementById(self._ref);
+							//
+							// 	ChangeState(doc._data).then(function(res) {
+							// 		if (res.ok) {
+							// 			doc.remove();
+							// 		}
+							// 	});
+							// }
 						}
 					]
 				};

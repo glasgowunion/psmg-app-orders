@@ -4,7 +4,7 @@ import { Append } from '/shared/js/modules/cell/append.js';
 
 // Import UI Components
 import { DispearingNotification } from '/shared/js/modules/components/notification.js';
-import { Header } from '/shared/js/modules/components/header.js';
+import { HeaderWithHomeLink } from '/shared/js/modules/components/header.js';
 import { Help } from '/shared/js/modules/components/help.js';
 import {
 	StatusTile,
@@ -42,7 +42,12 @@ var App = {
 	},
 	$cell: true,
 	$components: [
-		Header('', 'Packing', 'Enter weight and number of packages'),
+		HeaderWithHomeLink(
+			'',
+			'/',
+			'Packing',
+			'Enter weight and number of packages'
+		),
 		StatusTitleBar('12', [
 			//StatusTile('status-new-orders', 32, 'All'),
 			StatusTile('status-new-orders', '1', 'Ice Box'),

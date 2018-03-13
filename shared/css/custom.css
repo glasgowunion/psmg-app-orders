@@ -4,7 +4,7 @@ body {
 }
 
 .table.is-narrow td {
-	padding: 0.5em 1.5em;
+	padding: 0.5em 0.8em;
 }
 
 .columns {
@@ -34,4 +34,8 @@ nav.navbar {
 
 .is-link {
 	cursor: pointer;
+}
+
+.dropdown-menu {
+	min-width: 11rem;
 }

@@ -24,7 +24,7 @@ import { SetupDB } from '/shared/js/modules/db/db.js';
 
 //// Import Custom App scripts
 import { NewOrders } from '/apps/orders/js/components/queries/orders.js';
-import { Component as OrdersTable } from '/apps/orders/js/components/ordersTable.js';
+import { Component as OrdersTable } from '/apps/ship/js/components/ordersTable.js';
 import { Component as OrdersTicker } from '/apps/orders/js/components/ordersTicker.js';
 
 var DB = SetupDB(
@@ -42,12 +42,7 @@ var App = {
 	},
 	$cell: true,
 	$components: [
-		HeaderWithHomeLink(
-			'',
-			'/',
-			'New Orders',
-			'View New Orders from all channels'
-		),
+		HeaderWithHomeLink('', '/', 'Shipping', 'Ship packed orders'),
 		StatusTitleBar('12', [
 			//StatusTile('status-new-orders', 32, 'All'),
 			StatusTile('status-new-orders', '1', 'Ice Box'),
