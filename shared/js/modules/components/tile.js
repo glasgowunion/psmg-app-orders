@@ -7,6 +7,12 @@ function StatusTile(id, number, text) {
   return {
     $type: 'div',
     id: id,
+    _text: '-',
+    $update: function() {
+      var self = this
+      var sel = window.Sizzle('.title', self)
+      sel[0].innerHTML = self._text
+    },
     class: 'tile is-parent',
     $components: [
       {
@@ -61,7 +67,7 @@ function StatusTileWithIcon(id, icon, text) {
 
 // StatusTitleBar : Wraps multiple status tiles to display in a using Bulma
 // @params components {[Object]} - array of StatusTiles
-function StatusTitleBar(size,components) {
+function StatusTitleBar(size, components) {
   return {
     $type: 'div',
     $cell: true,

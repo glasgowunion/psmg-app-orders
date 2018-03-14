@@ -1,15 +1,16 @@
 import { DB } from '/shared/js/app/orders/db.js'
-import { States } from 'shared/js/app/orders/states.js'
+import { States } from '/shared/js/app/orders/states.js'
 
 // ChangeState : changes state of Order
 // @params item {Object} - Order object
 // @params newState {string} - tag for new state must be in Order States
-export async function ChangeState(item, newstate) {
+async function ChangeState(item, newstate) {
   try {
-    // check newstate exists in states  
+    // check newstate exists in states
     if (!verifyStateChange(newstate)) {
-        throw 'New State is not a verified order state check states.js for verified states'
-}
+      throw newstate +
+        ' is not a verified order state check states.js for verified states'
+    }
     // check state field exists
     if (item.hasOwnProperty('state')) {
       item['state'] = newstate
@@ -17,6 +18,7 @@ export async function ChangeState(item, newstate) {
       console.log('order has no state, assigning to icebox')
       item['state'] = 'icebox'
     }
+    console.log(item)
     var res = await DB.put(item)
     return res
   } catch (err) {
@@ -26,8 +28,31 @@ export async function ChangeState(item, newstate) {
 
 // verifyStateChange : does new state exit in states
 function verifyStateChange(newstate) {
-  if ((States.indexOf(newstate) == -1)) {
-   return true
+  if (States.indexOf(newstate) == -1) {
+    return false
   }
-   return false
-} 
+  return true
+}
+
+// ChangeStateOnClick : Binds the change state function
+// to a component's on click event
+function ChangeStateOnClick(component, id, newState) {
+  component._newState = newState
+  component._ref = id
+  component.onclick = function() {
+    var self = this
+    var doc = document.getElementById(self._ref)
+    ChangeState(doc._data, self._newState)
+      .then(function(res) {
+        if (res.ok) {
+          doc.remove()
+        }
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
+  return component
+}
+
+export { ChangeStateOnClick }

@@ -45,7 +45,7 @@ export function Postcode(str) {
 // FormatName take two strings
 // TitleCase() both of them
 // put a space in the middle
-export function Name(str1, str2) {
-  var concat = str1 + '  ' + str2
+export function Name(str1) {
+  var concat = str1
   return toTitleCase(concat)
 }
