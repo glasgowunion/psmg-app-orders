@@ -38,8 +38,8 @@ var App = {
 			),
 			StatusTileWithIcon(
 				'status-new-orders',
-				Icons.IconWithLink('/apps/packing', 'fa-dolly', ''),
-				'Packing'
+				Icons.IconWithLink('/apps/pack', 'fa-dolly', ''),
+				'Pack'
 			),
 			StatusTileWithIcon(
 				'status-new-orders',
