@@ -28,7 +28,7 @@ var component = {
   $type: 'table',
   class: 'table is-bordered is-striped is-narrow is-hoverable is-fullwidth',
   $components: [
-    TableHeader(['Name', 'Order', 'City', 'Postcode', 'Actions']),
+    TableHeader(['Name', 'Order', 'Pack', 'Actions']),
     {
       _template: function(item) {
         var map_link =
@@ -41,23 +41,112 @@ var component = {
           $components: [
             TableCell(RenderNameField(item)),
             TableCell(RenderLineItems(item)),
-            TableCellText(item.delivery.details.address.city),
-            TableCellTextWithComponent(
-              Format.Postcode(item.delivery.details.address.postal_code),
-              Icons.IconWithLink(map_link, 'fa-map-marker-alt', 'right'),
-            ),
+
+
+						{
+							$type: 'td',
+							$components: [
+								{
+									$type: 'div',
+									class: 'field-body',
+									$components: [
+										{
+											$type: 'div',
+											class: 'field',
+											$components: [
+												{
+													$type: 'p',
+													class: 'control is-expanded has-icons-left',
+													$components: [
+														{
+															$type: 'input',
+															class: 'input',
+															type: 'number',
+															placeholder: 'Weight',
+															value: ''
+														},
+														{
+															$type: 'span',
+															class: 'icon is-small is-left',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-weight'
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											$type: 'div',
+											class: 'field',
+											$components: [
+												{
+													$type: 'p',
+													class: 'control is-expanded has-icons-left',
+													$components: [
+														{
+															$type: 'input',
+															class: 'input',
+															type: 'number',
+															placeholder: 'Boxes',
+															value: ''
+														},
+														{
+															$type: 'span',
+															class: 'icon is-small is-left',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-boxes'
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											$type: 'p',
+											class: 'control',
+											$components: [
+												{
+													$type: 'a',
+													class: 'button',
+													$components: [
+														{
+															$type: 'span',
+															class: 'icon is-small',
+															$components: [
+																{
+																	$type: 'i',
+																	class: 'fas fa-check'
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+
             TableCell([
               DropdownButton.Group('Next Action', 'right', [
                 ChangeStateOnClick(
-                  DropdownButton.Button('Pack'),
+                  DropdownButton.Button('Ship'),
                   item._id,
-                  'pack',
+                  'ship',
                 ),
                 DropdownButton.Div(),
                 ChangeStateOnClick(
-                  DropdownButton.Button('Ice Box'),
+                  DropdownButton.Button('Move Back'),
                   item._id,
-                  'icebox',
+                  'ready',
                 ),
               ]),
             ]),

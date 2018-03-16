@@ -40,14 +40,27 @@ export async function ViewStateCount(key) {
 //UpdateViewStateCount : used for updating status tiles in the app
 export function UpdateViewStateCount(id, state) {
   ViewStateCount(state).then(function(res) {
-    console.log(res)
     var entries = res.rows
     if (entries.length == 1) {
       var entry = entries[0]
       var sel = document.getElementById(id)
-      console.log(entry.value)
       sel._text = entry.value
       sel.$update()
     }
+  })
+}
+
+// Tests
+
+// A viewCount should return an empty result set if the state is not found
+// normally we would throw an error but this makes it easier to display a component with
+// a null count
+window.Tests.TestInvalidStateShouldReturnZeroRows = function() {
+  ViewStateCount('invalid').then(function(res) {
+    console.assert(
+      res.rows.length == 0,
+      'Expected rows to be an empty array but got',
+      res.rows,
+    )
   })
 }

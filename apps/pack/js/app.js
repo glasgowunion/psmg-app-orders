@@ -62,11 +62,9 @@ function UpdateTitleState() {
 var App = {
   $init: function() {
     var self = this
-    WarehouseState('ready').then(function(orders) {
-      console.log(orders)
+    WarehouseState('pack').then(function(orders) {
       document.getElementById('orderData')._data = orders
       document.getElementById('orderData').$update()
-      console.log('changessssss')
       reactToChanges(DB)
       UpdateTitleState()
     })
