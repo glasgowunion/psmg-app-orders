@@ -1,27 +1,27 @@
-import * as Format from '/apps/orders/js/components/formaters.js';
-
-import { ChangeStateOnClick } from '/shared/js/app/orders/actions/changeState.js';
+import * as Format from '/apps/warehouse/js/components/renderers/formaters.js';
+import { ChangeStateOnClick } from '/apps/warehouse/js/state/actions/changeState.js';
 
 // Import Shared UI Components
 import * as Modals from '/shared/js/modules/components/modal.js';
 import * as Icons from '/shared/js/modules/components/icons.js';
 import * as DropdownButton from '/shared/js/modules/components/DropdownButton.js';
-
-// Import Orders UI
-import { Name as RenderNameField } from '/shared/js/app/orders/components/table/fields/name.js';
-import { LineItems as RenderLineItems } from '/shared/js/app/orders/components/table/fields/lineItems.js';
-import { Header as TableHeader } from '/shared/js/app/orders/components/table/header.js';
+import { Header as TableHeader } from '/shared/js/modules/components/table/header.js';
 import {
 	TableCell,
 	TableCellText,
 	TableCellTextWithComponent
-} from '/shared/js/app/orders/components/table/cell.js';
+} from '/shared/js/modules/components/table/cell.js';
 
-function renderBlankSpan() {
-	return {
-		$type: 'span'
-	};
-}
+// Import Fields
+import { Name as RenderNameField } from '/apps/warehouse/js/components/table/fields/name.js';
+import { LineItems as RenderLineItems } from '/apps/warehouse/js/components/table/fields/lineItems.js';
+import { Pack } from '/apps/warehouse/js/components/table/fields/pack.js';
+
+// function renderBlankSpan() {
+// 	return {
+// 		$type: 'span'
+// 	};
+// }
 
 var component = {
 	id: 'component-orders-table',

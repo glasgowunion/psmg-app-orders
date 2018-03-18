@@ -1,29 +1,15 @@
-//// Import Shared files
-// Import CellJS Utils
-import { Append } from '/shared/js/modules/cell/append.js';
-
-// Import UI Components
-import { DispearingNotification } from '/shared/js/modules/components/notification.js';
-import { HeaderWithHomeLink } from '/shared/js/modules/components/header.js';
-import { Help } from '/shared/js/modules/components/help.js';
-import { TwoColumnLayoutWithOffset } from '/shared/js/modules/ui/layout.js';
-
 // Import Database Utils
 import { DB } from '/apps/warehouse/js/state/db.js';
 
 // Import Custom App scripts
-import {
-	//	NewOrders,
-	WarehouseState
-	//	ViewStateCount,
-	//	UpdateViewStateCount
-} from '/apps/warehouse/js/state/queries/orders.js';
+import { WarehouseState } from '/apps/warehouse/js/state/queries/orders.js';
 
 // Import Warehouse Components
 import { OrderStatuses } from '/apps/warehouse/js/components/display/order-statuses.js';
 
 // Import Components For Pack App
-import { Component as OrdersTable } from '/apps/pack/js/components/ordersTable.js';
+import { Component as OrdersTable } from '/apps/warehouse/pack/js/components/table.js';
+import { HeaderWithHomeLink } from '/shared/js/modules/components/header.js';
 
 // Entry Point to App
 var App = {
@@ -45,8 +31,8 @@ var App = {
 			'View New Orders from all channels'
 		),
 		OrderStatuses(),
-		OrdersTable,
-		OrdersTicker
+		OrdersTable
+		//OrdersTicker
 	],
 	$type: 'div',
 	id: 'app'
