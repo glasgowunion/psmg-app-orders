@@ -26,7 +26,8 @@ async function ChangeState(item, newstate) {
 	}
 }
 
-// verifyStateChange : does new state exit in states
+// verifyStateChange : varify new state exist in states
+// @params newstate {string} - a string that should below in the States array
 function verifyStateChange(newstate) {
 	if (States.indexOf(newstate) == -1) {
 		return false;
