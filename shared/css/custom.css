@@ -46,3 +46,10 @@ nav.navbar {
 	font-size: 1.4rem;
 	line-height: 1.2;
 }
+
+/* Tile bar title */
+
+.tilebar-title {
+	font-size: 1.25rem;
+	color: hsl(192, 17%, 99%);
+}
