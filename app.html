@@ -10,8 +10,8 @@
   <!-- Font Awesome -->
   <script defer src="/shared/js/vendor/fontawesome.js"></script>
 
-  <!-- Cell JS UI Library -->
-  <script src="/shared/js/vendor/cell.js" charset="utf-8"></script>
+  <!-- Mithrill JS UI Library -->
+  <script src="https://unpkg.com/mithril/mithril.js"></script>
 
   <!-- Pouch DB and Pouch Plugins -->
   <script src="/shared/js/vendor/pouchdb.js"></script>
@@ -20,10 +20,17 @@
   <!-- Dexie JS in Memory DB -->
   <script src="/shared/js/vendor/dexie.js"></script>
 
+  <!-- Sizzle JS - Jquerys selector Library - keeps celljs methods in place -->
+  <script src="/shared/js/vendor/sizzle.js"></script>
+
   <!-- CSS and Fonts -->
 
   <!-- Bulma Version 0.6.0 -->
   <link rel="stylesheet" href="/shared/css/vendor/bulma.css" />
+
+  <!-- Bulma Extensions -->
+  <!--<link rel="stylesheet" href="/shared/css/vendor/bulma-tooltip.min.css" />-->
+  <link rel="stylesheet" href="/shared/css/vendor/balloon.css" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -34,11 +41,11 @@
   <!-- Custom CSS Changes to the admin theme -->
   <link rel="stylesheet" type="text/css" href="/shared/css/custom.css">
 
-  <title>Paintshed Management | Ship</title>
+  <title>Paintshed Management | All your Apps</title>
 </head>
 
 <body>
   <div id="app" class="container"></div>
-  <script type="module" src="/apps/shipper/js/main.js" charset="utf-8"></script>
+  <script type="module" src="/m.js" charset="utf-8"></script>
 </body>
 </html>

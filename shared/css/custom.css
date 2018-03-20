@@ -39,3 +39,10 @@ nav.navbar {
 .dropdown-menu {
 	min-width: 11rem;
 }
+
+/* Tile with icon */
+
+.tile .icon {
+	font-size: 1.4rem;
+	line-height: 1.2;
+}
