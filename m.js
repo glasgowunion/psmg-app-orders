@@ -1,4 +1,118 @@
 /*
+* Packages
+* Packages are intended to provide behaviours to the application
+* Although they are used for creating object instances they aren't
+* used for managing state
+*/
+var pkg = {};
+
+/*
+* Package | Database
+*
+* @object
+* opts : PouchDB options
+* skip_setup - enforces login to a pouchDB database
+*
+* @method
+* New : Creates a new PouchDB instance
+* @params url {string} - http(s) url string with couch db remote address
+*
+* @method
+* Login : If Auth has been setup in CouchDB
+* @params db {Obj} - db should be a pouchDB instance
+* @params username {string} - username setup on CouchDB
+* @params password {string} - password setup on CouchDB
+*/
+
+pkg.DB = {
+	opts: {
+		skip_setup: true
+	},
+
+	New: function(url) {
+		return new window.PouchDB(url, this.opts);
+	},
+
+	Login(db, username, password) {
+		var ajaxOpts = {
+			ajax: {
+				headers: {
+					Authorization: 'Basic ' + window.btoa(username + ':' + password)
+				}
+			}
+		};
+
+		return db.login(username, password, ajaxOpts);
+	}
+};
+
+/*
+* Package | Formaters
+* This Package Beautifies the data (mainly strings)
+* So they look better to the user
+*
+* @method
+* ToTitleCase : Converts a string into its title case equivalent
+* To Title Case 2.1 – http://individed.com/code/to-title-case/
+* Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
+*
+* @params str {string} - string to convert to title case
+*
+* @returns {string}
+*
+* @method
+* FormatPostcode : Takes a Postcode and beautifys it
+* 'Uppercase and split into the first 3 digits and then the rest'
+*
+* @params str {string} a postcode 6-7 chars long
+*
+* @returns {string}
+*/
+
+pkg.Formatters = {
+	ToTitleCase: function(str) {
+		var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+
+		return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(
+			match,
+			index,
+			title
+		) {
+			if (
+				index > 0 &&
+				index + match.length !== title.length &&
+				match.search(smallWords) > -1 &&
+				title.charAt(index - 2) !== ':' &&
+				(title.charAt(index + match.length) !== '-' ||
+					title.charAt(index - 1) === '-') &&
+				title.charAt(index - 1).search(/[^\s-]/) < 0
+			) {
+				return match.toLowerCase();
+			}
+
+			if (match.substr(1).search(/[A-Z]|\../) > -1) {
+				return match;
+			}
+
+			return match.charAt(0).toUpperCase() + match.substr(1);
+		});
+	},
+
+	FormatPostcode: function(str) {
+		return str
+			.replace(/\s/g, '')
+			.toUpperCase()
+			.replace(/(.{3})/, '$1 ');
+	}
+};
+
+// App related namespaces
+var App = {};
+App.Pages = {};
+App.PreLoad = {};
+App.DB = {};
+
+/*
 * Layouts
 */
 
@@ -18,11 +132,17 @@ const Layout = {
 // Icon : Displays a Bulma / font-awesome icon
 const Icon = {
 	view: function(vnode) {
+		var attrs = {};
 		var style = 'fa-' + vnode.attrs.symbol;
 		if (vnode.attrs.link) {
 			style + ' is-link';
 		}
-		return m('span.icon', m('i.fa', { class: style }));
+		if (vnode.attrs.tooltip) {
+			attrs.class = 'tooltip';
+			attrs['data-balloon'] = vnode.attrs.tooltip;
+			attrs['data-balloon-pos'] = 'up';
+		}
+		return m('span.icon', attrs, m('i.fa', { class: style }));
 	}
 };
 
@@ -127,14 +247,31 @@ const TileBar = {
 	}
 };
 
+// company icon ?
+// name
+// other icong ?
+// comment icon
+// phone icon
+// email icon
+const NameCell = {
+	view: function(vnode) {
+		var companyOrResidential = m(Icon, { symbol: 'home' });
+		if (vnode.attrs.company) {
+			companyOrResidential = m(Icon, {
+				symbol: 'building',
+				tooltip: vnode.attrs.company
+			});
+		}
+		return [companyOrResidential, m('span', vnode.attrs.name)];
+	}
+};
+
 /*
 * Pages
 */
 
-var Pages = {};
-
 // NotFound Page : functions as a 404 page
-Pages.NotFound = {
+App.Pages.NotFound = {
 	view: function() {
 		return [
 			m(Header, {
@@ -145,7 +282,7 @@ Pages.NotFound = {
 	}
 };
 
-Pages.Test = {
+App.Pages.Test = {
 	view: function() {
 		return [
 			m(Header, {
@@ -153,10 +290,14 @@ Pages.Test = {
 				subtitle: 'To build test components in'
 			}),
 			m(Table, {
-				headers: ['header1', 'header2', 'header3'],
+				headers: ['Name', 'Order', 'City', 'Postcode', 'Actions'],
 				rows: [
 					{
-						cells: [m('h1', 'cell1'), m('h2', 'cell3'), m('h3', 'cell3')]
+						cells: [
+							m(NameCell, { name: 'Jamie', company: 'shit life' }),
+							m('h2', 'cell3'),
+							m('h3', 'cell3')
+						]
 					},
 					{
 						cells: [m('h4', 'cell4'), m('h5', 'cell5'), m('h6', 'cell6')]
@@ -167,7 +308,7 @@ Pages.Test = {
 	}
 };
 
-var Home = {
+App.PreLoad.Home = {
 	hero: {
 		title: 'Paintshed management platform (psmg)',
 		subtitle: 'A place for all your apps in the warehouse'
@@ -178,7 +319,7 @@ var Home = {
 			apps: [
 				{
 					link: '/test',
-					name: 'Ice Box',
+					name: 'Test',
 					symbol: 'box'
 				},
 				{
@@ -227,8 +368,8 @@ var Home = {
 };
 
 // Home Page : A single page for all PS apps
-Pages.Home = {
-	s: Home,
+App.Pages.Home = {
+	s: App.PreLoad.Home,
 	view: function() {
 		var s = this.s;
 		return [
@@ -254,7 +395,7 @@ Pages.Home = {
 
 // Routes :
 m.route(document.getElementById('app'), '/', {
-	'/': Pages.Home,
-	'/test': Pages.Test,
-	'/:any...': Pages.NotFound
+	'/': App.Pages.Home,
+	'/test': App.Pages.Test,
+	'/:any...': App.Pages.NotFound
 });
