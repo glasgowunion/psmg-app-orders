@@ -42,7 +42,37 @@ const Header = {
 	}
 };
 
-const Table = {};
+const Table = {
+	view: function(vnode) {
+		return m(Layout, { size: '12' }, [
+			m(
+				'table.table.is-bordered.is-striped.is-narrow.is-hoverable.is-fullwidth',
+				[
+					m('thead', [
+						m(
+							'tr',
+							vnode.attrs.headers.map(function(header) {
+								return m('th', header);
+							})
+						)
+					]),
+					m(
+						'tbody',
+						vnode.attrs.rows.map(function(row) {
+							console.log(row);
+							return m(
+								'tr',
+								row.cells.map(function(cell) {
+									return m('td', cell);
+								})
+							);
+						})
+					)
+				]
+			)
+		]);
+	}
+};
 
 // Tile : Displays a Bulma Admin Tile - 'this is a specially styled Bulma Card'
 // @attrs title {vnode} - a vnode that is displayed above the subtitle
@@ -103,6 +133,7 @@ const TileBar = {
 
 var Pages = {};
 
+// NotFound Page : functions as a 404 page
 Pages.NotFound = {
 	view: function() {
 		return [
@@ -114,57 +145,116 @@ Pages.NotFound = {
 	}
 };
 
-Pages.Home = {
+Pages.Test = {
 	view: function() {
 		return [
 			m(Header, {
-				title: 'Paintshed management platform',
-				subtitle: 'A place for all your apps in the warehouse'
+				title: 'Test Page',
+				subtitle: 'To build test components in'
 			}),
-			m('h2.tilebar-title', 'Warehouse'),
-			m(TileBar, [
-				m(Tile, {
-					link: '/',
-					title: m(Icon, { symbol: 'box', link: true }),
-					subtitle: m('p.subtitle', 'Ice Box')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'star', link: true }),
-					subtitle: m('p.subtitle', 'Review')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'dolly', link: true }),
-					subtitle: m('p.subtitle', 'Pack')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'truck', link: true }),
-					subtitle: m('p.subtitle', 'Ship')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'credit-card', link: true }),
-					subtitle: m('p.subtitle', 'Accounts')
-				})
-			]),
-			m('h2.tilebar-title', 'Customer Service'),
-			m(TileBar, [
-				m(Tile, {
-					title: m(Icon, { symbol: 'question', link: true }),
-					subtitle: m('p.subtitle', 'Tracking')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'users', link: true }),
-					subtitle: m('p.subtitle', 'Customers')
-				}),
-				m(Tile, {
-					title: m(Icon, { symbol: 'clipboard-list', link: true }),
-					subtitle: m('p.subtitle', 'Quote')
-				})
-			])
+			m(Table, {
+				headers: ['header1', 'header2', 'header3'],
+				rows: [
+					{
+						cells: [m('h1', 'cell1'), m('h2', 'cell3'), m('h3', 'cell3')]
+					},
+					{
+						cells: [m('h4', 'cell4'), m('h5', 'cell5'), m('h6', 'cell6')]
+					}
+				]
+			})
 		];
 	}
 };
 
+var Home = {
+	hero: {
+		title: 'Paintshed management platform (psmg)',
+		subtitle: 'A place for all your apps in the warehouse'
+	},
+	groups: [
+		{
+			group: 'Warehouse',
+			apps: [
+				{
+					link: '/test',
+					name: 'Ice Box',
+					symbol: 'box'
+				},
+				{
+					link: '/test',
+					name: 'Review',
+					symbol: 'star'
+				},
+				{
+					link: '/test',
+					name: 'Pack',
+					symbol: 'dolly'
+				},
+				{
+					link: '/test',
+					name: 'Ship',
+					symbol: 'truck'
+				},
+				{
+					link: '/test',
+					name: 'Accounts',
+					symbol: 'credit-card'
+				}
+			]
+		},
+		{
+			group: 'Customer Service',
+			apps: [
+				{
+					link: '/',
+					name: 'Tracking',
+					symbol: 'question'
+				},
+				{
+					link: '/',
+					name: 'Customers',
+					symbol: 'users'
+				},
+				{
+					link: '/',
+					name: 'Quote',
+					symbol: 'clipboard-list'
+				}
+			]
+		}
+	]
+};
+
+// Home Page : A single page for all PS apps
+Pages.Home = {
+	s: Home,
+	view: function() {
+		var s = this.s;
+		return [
+			m(Header, s.hero),
+			s.groups.map(function(ss) {
+				return [
+					m('h2.tilebar-title', ss.group),
+					m(
+						TileBar,
+						ss.apps.map(function(sss) {
+							return m(Tile, {
+								link: sss.link,
+								title: m(Icon, { symbol: sss.symbol, link: true }),
+								subtitle: m('p.subtitle', sss.name)
+							});
+						})
+					)
+				];
+			})
+		];
+	}
+};
+
+// Routes :
 m.route(document.getElementById('app'), '/', {
 	'/': Pages.Home,
+	'/test': Pages.Test,
 	'/:any...': Pages.NotFound
 });
