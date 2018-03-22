@@ -52,9 +52,7 @@ pkg.DB = {
 * So they look better to the user
 *
 * @method
-* ToTitleCase : Converts a string into its title case equivalent
-* To Title Case 2.1 – http://individed.com/code/to-title-case/
-* Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
+* ToTitleCase : Converts a string into its title case equivalent - http://individed.com/code/to-title-case/
 *
 * @params str {string} - string to convert to title case
 *
@@ -134,6 +132,9 @@ const Icon = {
 	view: function(vnode) {
 		var attrs = {};
 		var style = 'fa-' + vnode.attrs.symbol;
+		if (vnode.attrs.style) {
+			style + ' ' + vnode.attrs.style
+		}
 		if (vnode.attrs.link) {
 			style + ' is-link';
 		}
@@ -255,7 +256,7 @@ const TileBar = {
 // email icon
 const NameCell = {
 	view: function(vnode) {
-		var companyOrResidential = m(Icon, { symbol: 'home' });
+		var companyOrResidential = m(Icon, { symbol: 'home'});
 		if (vnode.attrs.company) {
 			companyOrResidential = m(Icon, {
 				symbol: 'building',
