@@ -130,20 +130,28 @@ const Layout = {
 // Icon : Displays a Bulma / font-awesome icon
 const Icon = {
 	view: function(vnode) {
+		console.log(vnode);
 		var attrs = {};
+		attrs.class = '';
 		var style = 'fa-' + vnode.attrs.symbol;
 		if (vnode.attrs.style) {
-			style + ' ' + vnode.attrs.style
+			attrs.class = vnode.attrs.style;
 		}
-		if (vnode.attrs.link) {
-			style + ' is-link';
-		}
+
 		if (vnode.attrs.tooltip) {
-			attrs.class = 'tooltip';
+			attrs.class = ' tooltip';
 			attrs['data-balloon'] = vnode.attrs.tooltip;
 			attrs['data-balloon-pos'] = 'up';
 		}
-		return m('span.icon', attrs, m('i.fa', { class: style }));
+
+		var icon = m('span.icon', attrs, m('i.fa', { class: style }));
+
+		if (vnode.attrs.link) {
+			attrs.class = attrs.class + ' is-link';
+			var sel = 'a' + '[href=' + vnode.attrs.link + ']';
+			return m(sel, { oncreate: m.route.link }, icon);
+		}
+		return icon;
 	}
 };
 
@@ -248,22 +256,109 @@ const TileBar = {
 	}
 };
 
-// company icon ?
-// name
-// other icong ?
-// comment icon
-// phone icon
-// email icon
+// OrderlineCell : Renders an Orderline Cell in a Table cell
+// @attrs number {string} - Order Number
+// @attrs currency {string} - currency
+// @attrs total {string} - order total
+// @attrs lineItems {[Object]} - array of line item objects
+const OrderlineCell = {
+	addSKUs: function(a, e) {
+		return a + e.quantity;
+	},
+	totalSKUs: function(skus) {
+		return window.R.reduce(this.addSKUs, 0, skus);
+	},
+	view: function(vnode) {
+		return [
+			m('span', vnode.attrs.number),
+			m('span.is-small.tag', vnode.attrs.currency + vnode.attrs.total),
+			m(Icon, { symbol: 'tag', style: 'is-pulled-right' }),
+			m('span.is-pulled-right', this.totalSKUs(vnode.attrs.lineItems) + 'x'),
+			m(Icon, { symbol: 'barcode', style: 'is-pulled-right' }),
+			m('span.is-pulled-right', vnode.attrs.lineItems.length + 'x')
+		];
+	}
+};
+
 const NameCell = {
 	view: function(vnode) {
-		var companyOrResidential = m(Icon, { symbol: 'home'});
+		var companyOrResidential = m(Icon, { symbol: 'home' });
 		if (vnode.attrs.company) {
 			companyOrResidential = m(Icon, {
 				symbol: 'building',
 				tooltip: vnode.attrs.company
 			});
 		}
-		return [companyOrResidential, m('span', vnode.attrs.name)];
+		return [
+			companyOrResidential,
+			[
+				m('span', pkg.Formatters.ToTitleCase(vnode.attrs.name)),
+				m(Icon, {
+					link: '/comment/1',
+					symbol: 'comment',
+					style: 'is-pulled-right lighter'
+				}),
+				m(Icon, {
+					link: '/contact/1',
+					symbol: 'address-card',
+					style: 'is-pulled-right'
+				})
+			]
+		];
+	}
+};
+
+const NextActionCell = {
+	view: function(vnode) {
+		return m(
+			'div.dropdown.is-hoverable.is-pulled-right',
+			m(
+				'div.dropdown-trigger',
+				m(
+					'button.button',
+					{
+						'aria-haspopup': 'true',
+						'aria-controls': 'dropdown-menu'
+					},
+					[
+						m('span', 'Next Action'),
+						m(Icon, { symbol: 'angle-down', style: 'is-small' })
+					]
+				)
+			),
+			m(
+				'div.dropdown-menu',
+				{ role: 'menu' },
+				m('div.dropdown-content', vnode.attrs.actions)
+			)
+		);
+	}
+};
+
+const PlainCell = {
+	view: function(vnode) {
+		return m('span', pkg.Formatters.ToTitleCase(vnode.attrs.text));
+	}
+};
+
+const PostcodeCell = {
+	view: function(vnode) {
+		var map_link =
+			'https://www.google.co.uk/maps/place/' + vnode.attrs.postcode;
+		return [
+			m('span', pkg.Formatters.FormatPostcode(vnode.attrs.postcode)),
+			m(
+				'a',
+				{
+					target: '_blank',
+					href: map_link
+				},
+				m(Icon, {
+					symbol: 'map-marker-alt',
+					style: 'is-pulled-right'
+				})
+			)
+		];
 	}
 };
 
@@ -295,13 +390,22 @@ App.Pages.Test = {
 				rows: [
 					{
 						cells: [
-							m(NameCell, { name: 'Jamie', company: 'shit life' }),
-							m('h2', 'cell3'),
-							m('h3', 'cell3')
+							m(NameCell, { name: 'Jamie Laux', company: 'Playgirls Ltd.' }),
+							m(OrderlineCell, {
+								number: 'Web-12345-TPUK',
+								currency: '£',
+								total: '10.00',
+								lineItems: [{ quantity: 2 }, { quantity: 4 }]
+							}),
+							m(PlainCell, { text: 'glasgow' }),
+							m(PostcodeCell, { postcode: 'g13lb' }),
+							m(NextActionCell, {
+								actions: [m('a.dropdown-item', 'button')]
+							})
 						]
 					},
 					{
-						cells: [m('h4', 'cell4'), m('h5', 'cell5'), m('h6', 'cell6')]
+						cells: [m(NameCell, { name: 'iony Hund' })]
 					}
 				]
 			})

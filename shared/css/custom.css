@@ -40,6 +40,16 @@ nav.navbar {
 	min-width: 11rem;
 }
 
+/* Table elements */
+
+td a {
+	color: black;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
 /* Tile with icon */
 
 .tile .icon {
@@ -52,4 +62,14 @@ nav.navbar {
 .tilebar-title {
 	font-size: 1.25rem;
 	color: hsl(192, 17%, 99%);
+}
+
+/* Icons */
+
+.icon.lighter {
+	color: lightgray;
+}
+
+.icon.dark {
+	color: black;
 }
