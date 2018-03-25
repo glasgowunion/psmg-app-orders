@@ -130,7 +130,6 @@ const Layout = {
 // Icon : Displays a Bulma / font-awesome icon
 const Icon = {
 	view: function(vnode) {
-		console.log(vnode);
 		var attrs = {};
 		attrs.class = '';
 		var style = 'fa-' + vnode.attrs.symbol;
@@ -188,7 +187,6 @@ const Table = {
 					m(
 						'tbody',
 						vnode.attrs.rows.map(function(row) {
-							console.log(row);
 							return m(
 								'tr',
 								row.cells.map(function(cell) {
@@ -211,7 +209,6 @@ const Tile = {
 		// decide if tile contains a link
 		// if it does link up to router
 		if (vnode.attrs.link) {
-			console.log(vnode);
 			var sel = 'a.tile.is-parent' + '[href=' + vnode.attrs.link + ']';
 			return m(sel, { oncreate: m.route.link }, [
 				m('article.tile.is-child.box', [
@@ -282,6 +279,7 @@ const OrderlineCell = {
 
 const NameCell = {
 	view: function(vnode) {
+		console.log(vnode);
 		var companyOrResidential = m(Icon, { symbol: 'home' });
 		if (vnode.attrs.company) {
 			companyOrResidential = m(Icon, {
@@ -293,6 +291,7 @@ const NameCell = {
 			companyOrResidential,
 			[
 				m('span', pkg.Formatters.ToTitleCase(vnode.attrs.name)),
+				m('button', vnode.attrs, ['Click to ', vnode.children]),
 				m(Icon, {
 					link: '/comment/1',
 					symbol: 'comment',
@@ -390,7 +389,11 @@ App.Pages.Test = {
 				rows: [
 					{
 						cells: [
-							m(NameCell, { name: 'Jamie Laux', company: 'Playgirls Ltd.' }),
+							m(
+								NameCell,
+								{ name: 'Jamie Laux', company: 'Playgirls Ltd.' },
+								m('p', 'help')
+							),
 							m(OrderlineCell, {
 								number: 'Web-12345-TPUK',
 								currency: '£',
@@ -400,7 +403,11 @@ App.Pages.Test = {
 							m(PlainCell, { text: 'glasgow' }),
 							m(PostcodeCell, { postcode: 'g13lb' }),
 							m(NextActionCell, {
-								actions: [m('a.dropdown-item', 'button')]
+								actions: [
+									m('a.dropdown-item', 'button'),
+									m('hr.dropdown-divider'),
+									m('a.dropdown-item', 'button2')
+								]
 							})
 						]
 					},
