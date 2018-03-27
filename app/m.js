@@ -24,12 +24,13 @@ var pkg = {};
 * @params password {string} - password setup on CouchDB
 */
 
+// @flow
 pkg.DB = {
 	opts: {
 		skip_setup: true
 	},
 
-	New: function(url) {
+	New: function(url: string) {
 		return new window.PouchDB(url, this.opts);
 	},
 
