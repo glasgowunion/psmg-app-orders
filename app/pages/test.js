@@ -44,6 +44,7 @@ import { Plain } from '/app/components/cells/plain.js';
 import { Name } from '/app/components/cells/name.js';
 import { Orderline } from '/app/components/cells/orderline.js';
 import { Postcode } from '/app/components/cells/postcode.js';
+import { Snackbar } from '/app/components/snackbar.js';
 
 const Test = {
 	data: preload,
@@ -97,13 +98,14 @@ const Test = {
 						cells: [
 							m(Name, {
 								name: 'iony Hund',
-								email: 'jamie@bleeppurple.com',
-								phone: '0142435 252'
+								email: 'ian@bleeppurple.com',
+								phone: '019373 252'
 							})
 						]
 					}
 				]
-			})
+			}),
+			m('#snackbar-container', '')
 		];
 	}
 };

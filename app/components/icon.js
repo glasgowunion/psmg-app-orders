@@ -1,5 +1,5 @@
 const pre = vn => {
-	var attrs = {};
+	var attrs = vn.attrs;
 
 	// set style attribute
 	if (vn.attrs.style) {
@@ -11,6 +11,10 @@ const pre = vn => {
 		attrs['class'] = ' tooltip';
 		attrs['data-balloon'] = vn.attrs.tooltip;
 		attrs['data-balloon-pos'] = 'up';
+	}
+
+	if (vn.attrs.onclick) {
+		attrs['class'] = attrs['class'] + ' is-link';
 	}
 
 	return attrs;
