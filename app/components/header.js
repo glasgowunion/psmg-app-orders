@@ -2,12 +2,12 @@
 // @attrs title {string} - a title to be formatted and displayed
 // attrs subtitle {string} - a subtitle to be formatted and displayed
 const Header = {
-	view(vnode) {
+	view(vn) {
 		return m(Layout, { size: '12' }, [
 			m('section.hero.welcome.is-small', [
 				m('.hero-body', [
-					m('h1.title', vnode.attrs.title),
-					m('h2.subtitle', vnode.attrs.subtitle)
+					m('h1.title', vn.attrs.title),
+					m('h2.subtitle', vn.attrs.subtitle)
 				])
 			])
 		]);

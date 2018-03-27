@@ -1,7 +1,7 @@
 const Layout = {
-	view(vnode) {
+	view(vn) {
 		return m('.columns', [
-			m('.column', { class: `is-${vnode.attrs.size}` }, vnode.children)
+			m('.column', { class: `is-${vn.attrs.size}` }, vn.children)
 		]);
 	}
 };

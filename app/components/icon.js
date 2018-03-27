@@ -1,35 +1,30 @@
-// Icon : Displays a Bulma / font-awesome icon
-const pre = vnode => {
+const pre = vn => {
 	var attrs = {};
 
 	// set style attribute
-	if (vnode.attrs.style) {
-		attrs.class = vnode.attrs.style;
+	if (vn.attrs.style) {
+		attrs.class = vn.attrs.style;
 	}
 
 	// set tooltip attribute
-	if (vnode.attrs.tooltip) {
+	if (vn.attrs.tooltip) {
 		attrs['class'] = ' tooltip';
 		attrs['data-balloon'] = ' tooltip';
 		attrs['data-balloon-pos'] = 'up';
 	}
 
-	// set link attribute
-	if (vnode.attrs.link) {
-		const sel = `a[href=${vnode.attrs.link}]`;
-	}
-
-	return ['icon', attrs];
+	return attrs;
 };
 
+// Icon : Displays a Bulma / font-awesome icon
 const Icon = {
-	view(vnode) {
-		const attrs = pre(vnode);
-		const symbol = `fa-${vnode.attrs.symbol}`;
+	view(vn) {
+		const attrs = pre(vn);
+		const symbol = `fa-${vn.attrs.symbol}`;
 		const icon = m('span.icon', attrs, m('i.fa', { class: symbol }));
 
-		if (vnode.attrs.link) {
-			const sel = `a[href=${vnode.attrs.link}]`;
+		if (vn.attrs.link) {
+			const sel = `a[href=${vn.attrs.link}]`;
 			return m(sel, { oncreate: m.route.link }, icon);
 		}
 

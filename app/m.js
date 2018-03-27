@@ -7,47 +7,6 @@
 var pkg = {};
 
 /*
-* Package | Database
-*
-* @object
-* opts : PouchDB options
-* skip_setup - enforces login to a pouchDB database
-*
-* @method
-* New : Creates a new PouchDB instance
-* @params url {string} - http(s) url string with couch db remote address
-*
-* @method
-* Login : If Auth has been setup in CouchDB
-* @params db {Obj} - db should be a pouchDB instance
-* @params username {string} - username setup on CouchDB
-* @params password {string} - password setup on CouchDB
-*/
-
-// @flow
-pkg.DB = {
-	opts: {
-		skip_setup: true
-	},
-
-	New: function(url: string) {
-		return new window.PouchDB(url, this.opts);
-	},
-
-	Login(db, username, password) {
-		var ajaxOpts = {
-			ajax: {
-				headers: {
-					Authorization: 'Basic ' + window.btoa(username + ':' + password)
-				}
-			}
-		};
-
-		return db.login(username, password, ajaxOpts);
-	}
-};
-
-/*
 * Package | Formaters
 * This Package Beautifies the data (mainly strings)
 * So they look better to the user
@@ -280,7 +239,6 @@ const OrderlineCell = {
 
 const NameCell = {
 	view: function(vnode) {
-		console.log(vnode);
 		var companyOrResidential = m(Icon, { symbol: 'home' });
 		if (vnode.attrs.company) {
 			companyOrResidential = m(Icon, {
