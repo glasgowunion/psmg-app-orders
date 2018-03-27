@@ -14,6 +14,8 @@ function whatLayoutSize(len) {
 	return layouts[len];
 }
 
+import { Layout } from '/app/components/layout.js';
+
 // Tile bar renders tiles
 // to pretify the layout it renders
 // a maximum of 5 tiles and adjusts the layout

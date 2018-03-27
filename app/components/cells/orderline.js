@@ -1,3 +1,6 @@
+// Components
+import { Icon } from '/app/components/icon.js';
+
 const Orderline = {
 	addSKUs(a, e) {
 		return a + e.quantity;

@@ -1,4 +1,4 @@
-const data = {
+const preload = {
 	hero: {
 		title: 'Paintshed management platform (psmg)',
 		subtitle: 'A place for all your apps in the warehouse'
@@ -60,12 +60,13 @@ const data = {
 import { Header } from '/app/components/header.js';
 import { TileBar } from '/app/components/tilebar.js';
 import { Tile } from '/app/components/tile.js';
+import { Icon } from '/app/components/icon.js';
 
 // Home Page : A single page for all PS apps
 const Home = {
-	data: data,
+	data: preload,
 	view() {
-		var s = this.data;
+		var data = this.data;
 		return [
 			m(Header, data.hero),
 			data.groups.map(function(children) {
@@ -86,3 +87,5 @@ const Home = {
 		];
 	}
 };
+
+export { Home };

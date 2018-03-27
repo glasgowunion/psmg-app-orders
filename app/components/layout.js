@@ -5,3 +5,5 @@ const Layout = {
 		]);
 	}
 };
+
+export { Layout };

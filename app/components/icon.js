@@ -9,7 +9,7 @@ const pre = vn => {
 	// set tooltip attribute
 	if (vn.attrs.tooltip) {
 		attrs['class'] = ' tooltip';
-		attrs['data-balloon'] = ' tooltip';
+		attrs['data-balloon'] = vn.attrs.tooltip;
 		attrs['data-balloon-pos'] = 'up';
 	}
 

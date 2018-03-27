@@ -1,3 +1,5 @@
+import { Header } from '/app/components/header.js';
+
 // NotFound Page : functions as a 404 page
 const NotFound = {
 	view() {

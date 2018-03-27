@@ -3,6 +3,8 @@
 const sel =
 	'table.table.is-bordered.is-striped.is-narrow.is-hoverable.is-fullwidth';
 
+import { Layout } from '/app/components/layout.js';
+
 const Table = {
 	view(vn) {
 		var rows = vn.attrs.rows;

@@ -1,5 +1,7 @@
 const sel = 'div.dropdown.is-hoverable.is-pulled-right';
 
+import { Icon } from '/app/components/icon.js';
+
 const NextAction = {
 	view(vn) {
 		return m(

@@ -1,3 +1,5 @@
+import { Layout } from '/app/components/layout.js';
+
 // Header : Displays a Bulma Hero / Header
 // @attrs title {string} - a title to be formatted and displayed
 // attrs subtitle {string} - a subtitle to be formatted and displayed

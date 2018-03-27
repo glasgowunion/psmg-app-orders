@@ -10,10 +10,16 @@ const mapIcon = {
 	style: 'is-pulled-right'
 };
 
+// Components
+import { Icon } from '/app/components/icon.js';
+
+// Utilities
+import { Postcode as Formatter } from '/app/pkg/formatters/postcode.js';
+
 const Postcode = {
 	view(vn) {
 		return [
-			m('span', pkg.Formatters.FormatPostcode(vn.attrs.postcode)),
+			m('span', Formatter(vn.attrs.postcode)),
 			m('a', link(vn.attrs.postcode), m(Icon, mapIcon))
 		];
 	}
