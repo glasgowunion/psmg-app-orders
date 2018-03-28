@@ -1,7 +1,7 @@
 const preload = {
 	hero: {
 		title: 'Review',
-		subtitle: 'Orders that are ready to review and processing'
+		subtitle: 'Orders that are ready to review and process'
 	},
 	tiles: [
 		{
@@ -67,16 +67,12 @@ const Test = {
 				rows: [
 					{
 						cells: [
-							m(
-								Name,
-								{
-									name: 'Jamie Laux',
-									company: 'Playgirls Ltd.',
-									email: 'jamie@bleeppurple.com',
-									phone: '0142435 252'
-								},
-								m('p', 'help')
-							),
+							m(Name, {
+								name: 'Jamie Laux',
+								company: 'Playgirls Ltd.',
+								email: 'jamie@bleeppurple.com',
+								phone: '0142435 252'
+							}),
 							m(Orderline, {
 								number: 'Web-12345-TPUK',
 								currency: '£',
@@ -97,9 +93,25 @@ const Test = {
 					{
 						cells: [
 							m(Name, {
-								name: 'iony Hund',
-								email: 'ian@bleeppurple.com',
-								phone: '019373 252'
+								name: 'Jamie Laux',
+								company: 'Playgirls Ltd.',
+								email: 'jamie@bleeppurple.com',
+								phone: '0142435 252'
+							}),
+							m(Orderline, {
+								number: 'Web-12345-TPUK',
+								currency: '£',
+								total: '10.00',
+								lineItems: [{ quantity: 2 }, { quantity: 4 }]
+							}),
+							m(Plain, { text: 'glasgow' }),
+							m(Postcode, { postcode: 'g13lb' }),
+							m(NextAction, {
+								actions: [
+									m('a.dropdown-item', 'button'),
+									m('hr.dropdown-divider'),
+									m('a.dropdown-item', 'button2')
+								]
 							})
 						]
 					}

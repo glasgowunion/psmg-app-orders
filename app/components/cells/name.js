@@ -31,8 +31,18 @@ const Name = {
 						return m.render(
 							document.getElementById('snackbar-container'),
 							m(Snackbar, {}, [
-								m('h2', `${vn.attrs.name} - Contact Details`),
-								m('p', vn.attrs.email),
+								m('h2', ToTitleCase(vn.attrs.name)),
+								m('hr'),
+								m(
+									'p',
+									m(Icon, {
+										style: 'color:white;',
+										link: `mailto://${vn.attrs.email}`,
+										symbol: 'envelope',
+										href: true
+									}),
+									vn.attrs.email
+								),
 								m('p', vn.attrs.phone)
 							])
 						);

@@ -29,6 +29,9 @@ const Icon = {
 
 		if (vn.attrs.link) {
 			const sel = `a[href=${vn.attrs.link}]`;
+			if (vn.attrs.href) {
+				return m(sel, { target: '_blank' }, icon);
+			}
 			return m(sel, { oncreate: m.route.link }, icon);
 		}
 
