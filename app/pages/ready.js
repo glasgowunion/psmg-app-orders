@@ -3,6 +3,9 @@ const preload = {
 		title: 'Review',
 		subtitle: 'Orders that are ready to review and process'
 	},
+	table: {
+		headers: ['Name', 'Order', 'City', 'Postcode', 'Actions']
+	},
 	tiles: [
 		{
 			link: '/',
@@ -11,7 +14,7 @@ const preload = {
 		},
 		{
 			link: '/test',
-			name: 'Review',
+			name: 'Ready',
 			symbol: 'star'
 		},
 		{
@@ -32,10 +35,8 @@ const preload = {
 	]
 };
 
+// Components
 import { Header } from '/app/components/header.js';
-import { TileBar } from '/app/components/tilebar.js';
-import { Tile } from '/app/components/tile.js';
-import { Icon } from '/app/components/icon.js';
 
 // Table amd Cell Components
 import { Table } from '/app/components/table.js';
@@ -46,24 +47,18 @@ import { Orderline } from '/app/components/cells/orderline.js';
 import { Postcode } from '/app/components/cells/postcode.js';
 import { Snackbar } from '/app/components/snackbar.js';
 
-const Test = {
+// Component Collections
+import { WarehouseStatuses } from '/app/components/collections/warehouse-statuses.js';
+
+const Ready = {
 	data: preload,
 	view() {
 		var data = this.data;
 		return [
 			m(Header, data.hero),
-			m(
-				TileBar,
-				data.tiles.map(function(attrs) {
-					return m(Tile, {
-						link: attrs.link,
-						title: m(Icon, { symbol: attrs.symbol, link: true }),
-						subtitle: m('p.subtitle', attrs.name)
-					});
-				})
-			),
+			m(WarehouseStatuses),
 			m(Table, {
-				headers: ['Name', 'Order', 'City', 'Postcode', 'Actions'],
+				headers: data.table.headers,
 				rows: [
 					{
 						cells: [
@@ -122,4 +117,4 @@ const Test = {
 	}
 };
 
-export { Test };
+export { Ready };

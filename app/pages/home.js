@@ -9,12 +9,12 @@ const preload = {
 			apps: [
 				{
 					link: '/test',
-					name: 'Test',
+					name: 'Icebox',
 					symbol: 'box'
 				},
 				{
-					link: '/test',
-					name: 'Review',
+					link: '/ready',
+					name: 'Ready',
 					symbol: 'star'
 				},
 				{
