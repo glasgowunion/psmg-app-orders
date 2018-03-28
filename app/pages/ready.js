@@ -1,4 +1,4 @@
-const preload = {
+const init = {
 	hero: {
 		title: 'Review',
 		subtitle: 'Orders that are ready to review and process'
@@ -35,6 +35,45 @@ const preload = {
 	]
 };
 
+const NameCellFromOrder = order => {
+	return {
+		name: order.billing.contact.name ? order.billing.contact.name : 'No name',
+		company: order.billing.contact.company
+			? order.billing.contact.company
+			: null,
+		email: order.billing.contact.email ? order.billing.contact.email : null,
+		phone: order.billing.contact.phone ? order.billing.contact.phone : null
+	};
+};
+
+const OrderlineCellFromOrder = order => {
+	return {
+		number: order.number ? order.number : 'No Order Number',
+		currency: CurrencyCode(order.total.currency_code),
+		total: order.total.display_amount ? order.total.amount : null,
+		lineItems: order.line_items ? order.line_items : []
+	};
+};
+
+const CityCellFromOrder = order => {
+	return {
+		text: order.delivery.details.address.city
+			? order.delivery.details.address.city
+			: 'No City'
+	};
+};
+
+const PostcodeCellFromOrder = order => {
+	return {
+		postcode: order.delivery.details.address.postal_code
+			? order.delivery.details.address.postal_code
+			: 'No Postal Code'
+	};
+};
+
+// Test Data
+import { Order, Orders } from '/app/test/data/order.js';
+
 // Components
 import { Header } from '/app/components/header.js';
 
@@ -50,67 +89,44 @@ import { Snackbar } from '/app/components/snackbar.js';
 // Component Collections
 import { WarehouseStatuses } from '/app/components/collections/warehouse-statuses.js';
 
+// Utilities
+import { CurrencyCode } from '/app/pkg/formatters/currency-code.js';
+
+const Rows = orders => {
+	return orders.map(Row);
+};
+
+const Row = order => {
+	return {
+		cells: [
+			m(Name, NameCellFromOrder(order)),
+			m(Orderline, OrderlineCellFromOrder(order)),
+			m(Plain, CityCellFromOrder(order)),
+			m(Postcode, PostcodeCellFromOrder(order)),
+			m(NextAction, {
+				actions: [
+					m('a.dropdown-item', 'button'),
+					m('hr.dropdown-divider'),
+					m('a.dropdown-item', 'button2')
+				]
+			})
+		]
+	};
+};
+
 const Ready = {
-	data: preload,
-	view() {
-		var data = this.data;
+	oninit(vn) {
+		this.init = init;
+		console.log(Orders);
+		console.log(Rows(Orders));
+	},
+	view(vn) {
 		return [
-			m(Header, data.hero),
+			m(Header, vn.state.init.hero),
 			m(WarehouseStatuses),
 			m(Table, {
-				headers: data.table.headers,
-				rows: [
-					{
-						cells: [
-							m(Name, {
-								name: 'Jamie Laux',
-								company: 'Playgirls Ltd.',
-								email: 'jamie@bleeppurple.com',
-								phone: '0142435 252'
-							}),
-							m(Orderline, {
-								number: 'Web-12345-TPUK',
-								currency: '£',
-								total: '10.00',
-								lineItems: [{ quantity: 2 }, { quantity: 4 }]
-							}),
-							m(Plain, { text: 'glasgow' }),
-							m(Postcode, { postcode: 'g13lb' }),
-							m(NextAction, {
-								actions: [
-									m('a.dropdown-item', 'button'),
-									m('hr.dropdown-divider'),
-									m('a.dropdown-item', 'button2')
-								]
-							})
-						]
-					},
-					{
-						cells: [
-							m(Name, {
-								name: 'Jamie Laux',
-								company: 'Playgirls Ltd.',
-								email: 'jamie@bleeppurple.com',
-								phone: '0142435 252'
-							}),
-							m(Orderline, {
-								number: 'Web-12345-TPUK',
-								currency: '£',
-								total: '10.00',
-								lineItems: [{ quantity: 2 }, { quantity: 4 }]
-							}),
-							m(Plain, { text: 'glasgow' }),
-							m(Postcode, { postcode: 'g13lb' }),
-							m(NextAction, {
-								actions: [
-									m('a.dropdown-item', 'button'),
-									m('hr.dropdown-divider'),
-									m('a.dropdown-item', 'button2')
-								]
-							})
-						]
-					}
-				]
+				headers: vn.state.init.table.headers,
+				rows: Rows(Orders)
 			}),
 			m('#snackbar-container', '')
 		];

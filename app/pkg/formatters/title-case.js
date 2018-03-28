@@ -14,7 +14,7 @@
 
 const ToTitleCase = str => {
 	const smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
-
+	str = str.toLowerCase();
 	return str.replace(
 		/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g,
 		(match, index, title) => {

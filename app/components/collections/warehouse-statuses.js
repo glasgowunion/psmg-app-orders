@@ -41,7 +41,7 @@ const WarehouseStatuses = {
 				return m(Tile, {
 					link: attrs.link,
 					title: m(Icon, { symbol: attrs.symbol, link: true }),
-					subtitle: m('p.subtitle', attrs.name)
+					subtitle: m('p.subtitle.has-text-weight-semibold', attrs.name)
 				});
 			})
 		);
