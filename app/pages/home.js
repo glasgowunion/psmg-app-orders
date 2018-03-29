@@ -8,7 +8,7 @@ const preload = {
 			group: 'Warehouse',
 			apps: [
 				{
-					link: '/test',
+					link: '/icebox',
 					name: 'Icebox',
 					symbol: 'box'
 				},

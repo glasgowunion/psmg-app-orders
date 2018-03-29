@@ -1,7 +1,7 @@
 const preload = {
 	tiles: [
 		{
-			link: '/',
+			link: '/icebox',
 			name: '-',
 			symbol: 'box'
 		},
@@ -16,7 +16,7 @@ const preload = {
 			symbol: 'dolly'
 		},
 		{
-			link: '/test',
+			link: '/ship',
 			name: '-',
 			symbol: 'truck'
 		},
