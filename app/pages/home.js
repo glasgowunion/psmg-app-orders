@@ -18,7 +18,7 @@ const preload = {
 					symbol: 'star'
 				},
 				{
-					link: '/test',
+					link: '/pack',
 					name: 'Pack',
 					symbol: 'dolly'
 				},

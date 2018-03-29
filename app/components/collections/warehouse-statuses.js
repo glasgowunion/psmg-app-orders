@@ -6,12 +6,12 @@ const preload = {
 			symbol: 'box'
 		},
 		{
-			link: '/test',
+			link: '/ready',
 			name: '-',
 			symbol: 'star'
 		},
 		{
-			link: '/test',
+			link: '/pack',
 			name: '-',
 			symbol: 'dolly'
 		},

@@ -27,6 +27,10 @@ const Icon = {
 		const symbol = `fa-${vn.attrs.symbol}`;
 		const icon = m('span.icon', attrs, m('i.fa', { class: symbol }));
 
+		if (vn.attrs.button) {
+			return m('span.button', icon);
+		}
+
 		if (vn.attrs.link) {
 			const sel = `a[href=${vn.attrs.link}]`;
 			if (vn.attrs.href) {

@@ -8,7 +8,6 @@ import { Snackbar } from '/app/components/snackbar.js';
 const Name = {
 	view(vn) {
 		var self = this;
-		console.log(vn);
 		var companyOrResidential = m(Icon, { symbol: 'home' });
 		if (vn.attrs.company) {
 			companyOrResidential = m(Icon, {

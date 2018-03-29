@@ -1,38 +1,11 @@
 const init = {
 	hero: {
-		title: 'Ready',
-		subtitle: 'Orders that are ready to review and process'
+		title: 'Pack',
+		subtitle: 'Orders that are ready to be boxed'
 	},
 	table: {
-		headers: ['Name', 'Order', 'City', 'Postcode', 'Actions']
-	},
-	tiles: [
-		{
-			link: '/',
-			name: 'Test',
-			symbol: 'box'
-		},
-		{
-			link: '/test',
-			name: 'Ready',
-			symbol: 'star'
-		},
-		{
-			link: '/test',
-			name: 'Pack',
-			symbol: 'dolly'
-		},
-		{
-			link: '/test',
-			name: 'Ship',
-			symbol: 'truck'
-		},
-		{
-			link: '/test',
-			name: 'Accounts',
-			symbol: 'credit-card'
-		}
-	]
+		headers: ['Name', 'Order', 'Pack', 'Actions']
+	}
 };
 
 /*
@@ -59,27 +32,12 @@ const OrderlineCellFromOrder = order => {
 	};
 };
 
-const CityCellFromOrder = order => {
-	return {
-		text: order.delivery.details.address.city
-			? order.delivery.details.address.city
-			: 'No City'
-	};
-};
-
-const PostcodeCellFromOrder = order => {
-	return {
-		postcode: order.delivery.details.address.postal_code
-			? order.delivery.details.address.postal_code
-			: 'No Postal Code'
-	};
-};
-
 // Test Data
 import { Order, Orders } from '/app/test/data/order.js';
 
 // Components
 import { Header } from '/app/components/header.js';
+import { Icon } from '/app/components/icon.js';
 
 // Table amd Cell Components
 import { Table } from '/app/components/table.js';
@@ -105,8 +63,43 @@ const Row = order => {
 		cells: [
 			m(Name, NameCellFromOrder(order)),
 			m(Orderline, OrderlineCellFromOrder(order)),
-			m(Plain, CityCellFromOrder(order)),
-			m(Postcode, PostcodeCellFromOrder(order)),
+			m('.field-body', [
+				m(
+					'.field',
+					m('p.control.is-expanded.has-icons-left', [
+						m('input.input', { type: 'number', placeholder: 'Weight' }),
+						m(Icon, { class: 'is-small is-left', symbol: 'weight' })
+					])
+				),
+				m(
+					'.field',
+					m('p.control.is-expanded.has-icons-left', [
+						m('input.input', { type: 'number', placeholder: 'Boxes' }),
+						m(Icon, { style: 'is-small is-left', symbol: 'boxes' })
+					])
+				),
+				m(
+					'p.control',
+					m(Icon, {
+						button: true,
+						symbol: 'check',
+						style: 'is-small',
+						onclick(e) {
+							console.log(this.button);
+							window
+								.$(this)
+								.parent()
+								.parent()
+								.parent()
+								.parent()
+								.addClass('is-primary')
+								.find('input')
+								.attr('disabled', 'disabled');
+							//.css('background', 'red');
+						}
+					})
+				)
+			]),
 			m(NextAction, {
 				actions: [
 					m('a.dropdown-item', 'button'),
@@ -118,7 +111,7 @@ const Row = order => {
 	};
 };
 
-const Ready = {
+const Pack = {
 	oninit(vn) {
 		this.init = init;
 		console.log(Orders);
@@ -137,4 +130,4 @@ const Ready = {
 	}
 };
 
-export { Ready };
+export { Pack };
