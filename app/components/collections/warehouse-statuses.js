@@ -21,7 +21,7 @@ const preload = {
 			symbol: 'truck'
 		},
 		{
-			link: '/test',
+			link: '/accounts',
 			name: '-',
 			symbol: 'credit-card'
 		}

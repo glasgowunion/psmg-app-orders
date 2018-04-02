@@ -1,11 +1,10 @@
 const init = {
 	hero: {
-		title: 'Icebox',
-		subtitle:
-			'Orders that are not ready for processing or Orders that you need to keep for partial shipment'
+		title: 'Accounts',
+		subtitle: 'Orders can be sent to data exchange or archived'
 	},
 	table: {
-		headers: ['Name', 'Order', 'City', 'Postcode', 'Actions']
+		headers: ['Name', 'Order', 'City', 'Warehouse', 'Actions']
 	},
 	tiles: [
 		{
@@ -107,7 +106,7 @@ const Row = order => {
 			m(Name, NameCellFromOrder(order)),
 			m(Orderline, OrderlineCellFromOrder(order)),
 			m(Plain, CityCellFromOrder(order)),
-			m(Postcode, PostcodeCellFromOrder(order)),
+			m(Plain, { text: 'Paisley' }),
 			m(NextAction, {
 				actions: [
 					m('a.dropdown-item', 'button'),

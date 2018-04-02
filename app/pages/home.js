@@ -1,4 +1,4 @@
-const preload = {
+const init = {
 	hero: {
 		title: 'Paintshed management platform (psmg)',
 		subtitle: 'A place for all your apps in the warehouse'
@@ -23,12 +23,12 @@ const preload = {
 					symbol: 'dolly'
 				},
 				{
-					link: '/test',
+					link: '/ship',
 					name: 'Ship',
 					symbol: 'truck'
 				},
 				{
-					link: '/test',
+					link: '/accounts',
 					name: 'Accounts',
 					symbol: 'credit-card'
 				}
@@ -62,30 +62,32 @@ import { TileBar } from '/app/components/tilebar.js';
 import { Tile } from '/app/components/tile.js';
 import { Icon } from '/app/components/icon.js';
 
+// view : A Mithril component view
+// @params vn {oject} - a Mitril virtual node
+function view(vn) {
+	return [
+		m(Header, init.hero),
+		init.groups.map(function(children) {
+			return [
+				m('h2.tilebar-title', children.group),
+				m(
+					TileBar,
+					children.apps.map(function(attrs) {
+						return m(Tile, {
+							link: attrs.link,
+							title: m(Icon, { symbol: attrs.symbol, link: true }),
+							subtitle: m('p.subtitle', attrs.name)
+						});
+					})
+				)
+			];
+		})
+	];
+}
+
 // Home Page : A single page for all PS apps
-const Home = {
-	data: preload,
-	view() {
-		var data = this.data;
-		return [
-			m(Header, data.hero),
-			data.groups.map(function(children) {
-				return [
-					m('h2.tilebar-title', children.group),
-					m(
-						TileBar,
-						children.apps.map(function(attrs) {
-							return m(Tile, {
-								link: attrs.link,
-								title: m(Icon, { symbol: attrs.symbol, link: true }),
-								subtitle: m('p.subtitle', attrs.name)
-							});
-						})
-					)
-				];
-			})
-		];
-	}
+const Component = {
+	view: view
 };
 
-export { Home };
+export { Component };
