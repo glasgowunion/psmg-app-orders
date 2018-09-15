@@ -3,6 +3,10 @@ body {
 	border-top: 4px solid #1b95c5;
 }
 
+a {
+	color: black;
+}
+
 .table.is-narrow td {
 	padding: 0.5em 0.8em;
 }
@@ -38,4 +42,112 @@ nav.navbar {
 
 .dropdown-menu {
 	min-width: 11rem;
+}
+
+/* Table elements */
+
+td a {
+	color: black;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+/* Tile with icon */
+
+.tile .icon {
+	font-size: 1.4rem;
+	line-height: 1.2;
+}
+
+/* Tile bar title */
+
+.tilebar-title {
+	font-size: 1.25rem;
+	color: hsl(192, 17%, 99%);
+}
+
+/* Icons */
+
+.icon.lighter {
+	color: lightgray;
+}
+
+.icon.dark {
+	color: black;
+}
+
+/* snackbar */
+/* to display messages */
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+	visibility: hidden; /* Hidden by default. Visible on click */
+	min-width: 250px; /* Set a default minimum width */
+	margin-left: -125px; /* Divide value of min-width by 2 */
+	background-color: #333; /* Black background color */
+	color: #fff; /* White text color */
+	text-align: center; /* Centered text */
+	border-radius: 2px; /* Rounded borders */
+	padding: 16px; /* Padding */
+	position: fixed; /* Sit on top of the screen */
+	z-index: 1; /* Add a z-index if needed */
+	left: 50%; /* Center the snackbar */
+	bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+	visibility: visible; /* Show the snackbar */
+
+	/* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+However, delay the fade out process for 2.5 seconds */
+	/*-webkit-animation: fadein 0.5s, fadeout 0.5s 2s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;*/
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
